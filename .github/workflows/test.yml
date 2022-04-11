@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Output test
+        id: output_test
+        run: |
+          echo "connection=TESTOUTPUT" >> $GITHUB_ENV
+          echo "::set-output name=hostname::hostname1"
+    - name: Echo connstring
+        run: |
+          echo "Connstring env variable: " ${{ env.connection }}
+          echo "output variable: " ${{ steps.output_test.outputs.hostname }}
